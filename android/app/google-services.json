@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "320014621218",
+    "project_id": "e-wallet-push-notification",
+    "storage_bucket": "e-wallet-push-notification.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320014621218:android:adfb6e0215672bd310c87b",
+        "android_client_info": {
+          "package_name": "com.ewallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "320014621218-jp2vkh3oip8ia1uiuo7lt82kr699fbee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe1JK6eJaAB5UkQYXqy5MHJofU2Sc5gJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "320014621218-jp2vkh3oip8ia1uiuo7lt82kr699fbee.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
