@@ -90,9 +90,7 @@ class History extends Component {
       <View style={styles.wrapper}>
         <View style={styles.wrapperHeader}>
           <Text style={styles.titleBalance}>Balance</Text>
-          <Text style={styles.balance}>
-            {Number(this.props.users.data.balance).toLocaleString('en')}
-          </Text>
+          <Text style={styles.balance}>{this.props.users.data.balance}</Text>
         </View>
         <View style={styles.wrapperContent}>
           <View style={styles.nav}>
@@ -125,7 +123,7 @@ class History extends Component {
                   </View>
                   <View style={styles.cardRight}>
                     <Text style={styles.textBalance}>
-                      {Number(item.deductedBalance).toLocaleString('en')}
+                      {item.deductedBalance}
                     </Text>
                   </View>
                 </View>
@@ -156,7 +154,7 @@ class History extends Component {
                   </View>
                   <View style={styles.cardRight}>
                     <Text style={styles.textBalance}>
-                      {Number(item.deductedBalance).toLocaleString('en')}
+                      {item.deductedBalance}
                     </Text>
                   </View>
                 </View>

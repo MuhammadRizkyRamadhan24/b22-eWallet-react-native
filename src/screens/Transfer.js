@@ -14,11 +14,6 @@ import {connect} from 'react-redux';
 import {transferToUser} from '../redux/actions/transfers';
 import {getUserById} from '../redux/actions/users';
 
-const validationSchema = Yup.object().shape({
-  phoneNumberReceiver: Yup.string().min(11, 'Minimal 11 nomor!').required(''),
-  deductedBalance: Yup.number().min(10000, 'Minimal 10.000!').required(''),
-});
-
 class Transfer extends Component {
   constructor(props) {
     super(props);
@@ -54,6 +49,19 @@ class Transfer extends Component {
   }
 
   render() {
+    const str = this.props.users.data.balance;
+    const num = str.split(',').join('');
+    const balance = parseInt(num, 10);
+    console.log(balance);
+    const validationSchema = Yup.object().shape({
+      phoneNumberReceiver: Yup.string()
+        .min(11, 'Minimal 11 nomor!')
+        .required(''),
+      deductedBalance: Yup.number()
+        .min(10000, 'Minimal 10.000!')
+        .max(balance, 'Balance tidak cukup!')
+        .required(''),
+    });
     return (
       <View style={styles.wrapper}>
         <Formik

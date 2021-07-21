@@ -83,7 +83,6 @@ class Home extends Component {
   }
 
   render() {
-    // console.log(this.props.users.data.image);
     return (
       <>
         {this.state.loading === false ? (
@@ -149,7 +148,7 @@ class Home extends Component {
                 <View style={styles.balance}>
                   <Text style={styles.textBalance}>Balance</Text>
                   <Text style={styles.numberBalance}>
-                    {Number(this.props.users.data.balance).toLocaleString('en')}
+                    {this.props.users.data.balance}
                   </Text>
                 </View>
                 <View style={styles.featureBalance}>
