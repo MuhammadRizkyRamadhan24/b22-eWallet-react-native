@@ -36,10 +36,9 @@ class Login extends Component {
           ToastAndroid.LONG,
           ToastAndroid.TOP,
         );
-        return this.props.navigation.navigate('Dashboard');
       } else {
         ToastAndroid.showWithGravity(
-          'Login failed',
+          `${this.props.auth.msg}`,
           ToastAndroid.LONG,
           ToastAndroid.TOP,
         );

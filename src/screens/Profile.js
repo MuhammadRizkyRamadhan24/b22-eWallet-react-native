@@ -16,7 +16,6 @@ import {authLogout} from '../redux/actions/auth';
 class Profile extends Component {
   logout = () => {
     this.props.authLogout();
-    return this.props.navigation.navigate('Welcome');
   };
 
   render() {

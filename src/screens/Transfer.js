@@ -54,7 +54,6 @@ class Transfer extends Component {
   }
 
   render() {
-    console.log(this.props.transfers);
     return (
       <View style={styles.wrapper}>
         <Formik

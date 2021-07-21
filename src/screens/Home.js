@@ -83,7 +83,7 @@ class Home extends Component {
   }
 
   render() {
-    console.log(this.props.users.data.image);
+    // console.log(this.props.users.data.image);
     return (
       <>
         {this.state.loading === false ? (
@@ -193,12 +193,12 @@ class Home extends Component {
                   <Text style={styles.textIcon}>Streaming</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.wrapperFeature}>
-                  <Image source={iconInternet} style={styles.iconInternet} />
-                  <Text style={styles.textIcon}>Internet</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.wrapperFeature}>
                   <Image source={iconMusic} style={styles.iconMusic} />
                   <Text style={styles.textIcon}>Musik</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.wrapperFeature}>
+                  <Image source={iconInternet} style={styles.iconInternet} />
+                  <Text style={styles.textIcon}>Internet</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -377,32 +377,32 @@ const styles = StyleSheet.create({
     height: 30,
   },
   iconPulsa: {
-    width: 25,
-    height: 40,
+    width: 19,
+    height: 30,
   },
   iconSchool: {
-    width: 47,
-    height: 30,
-    marginBottom: 10,
+    width: 38,
+    height: 25,
+    marginBottom: 5,
   },
   iconGame: {
-    width: 50,
-    height: 38,
+    width: 40,
+    height: 30,
     marginBottom: 5,
   },
   iconStream: {
-    width: 40,
-    height: 38,
-    marginBottom: 5,
+    width: 30,
+    height: 28,
+    marginBottom: 2,
   },
   iconInternet: {
-    width: 45,
-    height: 33,
-    marginBottom: 12,
+    width: 35,
+    height: 25,
+    marginBottom: 5,
   },
   iconMusic: {
-    width: 45,
-    height: 42,
+    width: 25,
+    height: 23,
     marginBottom: 5,
   },
   textIcon: {

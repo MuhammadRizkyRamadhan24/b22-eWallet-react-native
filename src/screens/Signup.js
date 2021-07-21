@@ -1,20 +1,48 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ToastAndroid,
+} from 'react-native';
 import {Input} from 'native-base';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import Logo from '../../assets/logo.png';
 
+import {connect} from 'react-redux';
+import {authRegister} from '../redux/actions/auth';
+
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Email tidak valid!').required('Harus Diisi!'),
-  number: Yup.string().min(11, 'Minimal 11 angka!').required('Harus Diisi!'),
+  phoneNumber: Yup.string()
+    .min(11, 'Minimal 11 angka!')
+    .required('Harus Diisi!'),
   password: Yup.string().min(8, 'Minimal 8 karakter!').required('Harus Diisi!'),
 });
 
-export default class Signup extends Component {
+class Signup extends Component {
   signup = values => {
-    console.log(values);
-    this.props.navigation.navigate('Login');
+    this.props
+      .authRegister(values.email, values.phoneNumber, values.password)
+      .then(() => {
+        if (this.props.auth.msg === 'User has been create') {
+          ToastAndroid.showWithGravity(
+            'Signup success',
+            ToastAndroid.LONG,
+            ToastAndroid.TOP,
+          );
+          this.props.navigation.navigate('Login');
+        } else {
+          ToastAndroid.showWithGravity(
+            `${this.props.auth.msg}`,
+            ToastAndroid.LONG,
+            ToastAndroid.TOP,
+          );
+        }
+      });
   };
 
   render() {
@@ -25,7 +53,7 @@ export default class Signup extends Component {
         <Formik
           style={styles.wrapperInput}
           validationSchema={validationSchema}
-          initialValues={{email: '', number: '', password: ''}}
+          initialValues={{email: '', phoneNumber: '', password: ''}}
           onSubmit={values => this.signup(values)}>
           {({handleChange, handleBlur, handleSubmit, errors, values}) => (
             <View style={styles.wrapperInput}>
@@ -44,13 +72,13 @@ export default class Signup extends Component {
                 marginTop={5}
                 backgroundColor="#E0DEDE"
                 keyboardType="number-pad"
-                onChangeText={handleChange('number')}
-                onBlur={handleBlur('number')}
+                onChangeText={handleChange('phoneNumber')}
+                onBlur={handleBlur('phoneNumber')}
                 placeholder="Masukin nomor HP kamu ya!"
-                value={values.number}
+                value={values.phoneNumber}
               />
-              {errors.number ? (
-                <Text style={styles.textError}>{errors.number}</Text>
+              {errors.phoneNumber ? (
+                <Text style={styles.textError}>{errors.phoneNumber}</Text>
               ) : null}
               <Input
                 marginTop={5}
@@ -75,6 +103,14 @@ export default class Signup extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+const mapDispatchToProps = {authRegister};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);
 
 const styles = StyleSheet.create({
   wrapper: {

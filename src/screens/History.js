@@ -1,7 +1,22 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import {connect} from 'react-redux';
 import {historyReceiver, historySender} from '../redux/actions/transfers';
+
+// const footerComponent = () => {
+//   return (
+//     <View>
+//       <ActivityIndicator size="large" color="#440A67" />
+//     </View>
+//   );
+// };
 
 class History extends Component {
   constructor(props) {
@@ -57,7 +72,6 @@ class History extends Component {
       },
       () => {
         this.props.historySender(token, this.state.pageSender).then(() => {
-          console.log(this.props.transfers.msgSender);
           if (this.props.transfers.msgSender !== 'User Not Found') {
             this.setState({
               historySender: this.state.historySender.concat(
@@ -71,7 +85,7 @@ class History extends Component {
   };
 
   render() {
-    console.log(this.state.historySender);
+    // console.log(this.state.historySender);
     return (
       <View style={styles.wrapper}>
         <View style={styles.wrapperHeader}>
@@ -118,6 +132,11 @@ class History extends Component {
               )}
               onEndReached={this.loadMoreSender}
               onEndReachedThreshold={0}
+              // ListFooterComponent={
+              //   this.props.transfers.msgSender !== 'User Not Found' &&
+              //   footerComponent
+              // }
+              // ListFooterComponentStyle={styles.footer}
             />
           )}
           {this.state.status === 'Receive' && (
@@ -144,6 +163,11 @@ class History extends Component {
               )}
               onEndReached={this.loadMoreReceiver}
               onEndReachedThreshold={0}
+              // ListFooterComponent={
+              //   this.props.transfers.msgReceiver !== 'User Not Found' &&
+              //   footerComponent
+              // }
+              // ListFooterComponentStyle={styles.footer}
             />
           )}
           {/* <View style={styles.wrapperCard}>
@@ -258,5 +282,8 @@ const styles = StyleSheet.create({
   textBalance: {
     fontFamily: 'Roboto-Bold',
     fontSize: 18,
+  },
+  footer: {
+    marginTop: 20,
   },
 });

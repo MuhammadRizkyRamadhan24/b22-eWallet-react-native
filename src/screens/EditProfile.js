@@ -99,7 +99,7 @@ class EditProfile extends Component {
   }
 
   render() {
-    console.log(this.props.users.data.name);
+    // console.log(this.props.users.data.name);
     return (
       <View style={styles.wrapper}>
         <Formik
