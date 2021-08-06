@@ -9,7 +9,7 @@ import {
 import {Input} from 'native-base';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import {showMessage} from 'react-native-flash-message';
+import Toast from 'react-native-toast-message';
 
 import {connect} from 'react-redux';
 import {transferToUser} from '../redux/actions/transfers';
@@ -31,20 +31,35 @@ class Transfer extends Component {
       description: values.description,
     };
     this.props.transferToUser(token, data).then(() => {
-      this.setState({
-        isUpdate: !this.state.isUpdate,
-      });
-      // ToastAndroid.showWithGravity(
-      //   'Success transfer!',
-      //   ToastAndroid.LONG,
-      //   ToastAndroid.TOP,
-      // );
-      showMessage({
-        message: 'Success transfer!',
-        type: 'success',
-        backgroundColor: '#440A67',
-        color: '#fff',
-      });
+      if (this.props.transfers.msg === 'Transfer successfully') {
+        this.setState({
+          isUpdate: !this.state.isUpdate,
+        });
+        Toast.show({
+          type: 'success',
+          position: 'top',
+          text1: 'Success',
+          text2: 'Transfer Success!',
+          visibilityTime: 800,
+          autoHide: true,
+          topOffset: 30,
+          bottomOffset: 40,
+        });
+      } else {
+        this.setState({
+          isUpdate: !this.state.isUpdate,
+        });
+        Toast.show({
+          type: 'error',
+          position: 'top',
+          text1: 'Error',
+          text2: `${this.props.transfers.msg}`,
+          visibilityTime: 1000,
+          autoHide: true,
+          topOffset: 30,
+          bottomOffset: 40,
+        });
+      }
     });
   };
 

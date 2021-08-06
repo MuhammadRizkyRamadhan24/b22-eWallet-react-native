@@ -9,7 +9,7 @@ import {name as appName} from './app.json';
 import PushNotification from 'react-native-push-notification';
 import {Provider} from 'react-redux';
 // import store from './src/redux/store';
-import FlashMessage from 'react-native-flash-message';
+// import FlashMessage from 'react-native-flash-message';
 import reduxConfig from './src/redux/store';
 import {PersistGate} from 'redux-persist/integration/react';
 
@@ -35,7 +35,7 @@ const Main = () => {
     <Provider store={redux.store}>
       <PersistGate persistor={redux.persistor}>
         <App />
-        <FlashMessage position="top" />
+        {/* <FlashMessage position="top" /> */}
       </PersistGate>
     </Provider>
   );

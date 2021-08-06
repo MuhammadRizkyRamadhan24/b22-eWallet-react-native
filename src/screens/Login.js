@@ -11,7 +11,7 @@ import {Input} from 'native-base';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import Logo from '../../assets/logo.png';
-import {showMessage} from 'react-native-flash-message';
+import Toast from 'react-native-toast-message';
 
 import {connect} from 'react-redux';
 import {authLogin, authNotifToken} from '../redux/actions/auth';
@@ -37,19 +37,32 @@ class Login extends Component {
         //   ToastAndroid.LONG,
         //   ToastAndroid.TOP,
         // );
-        showMessage({
-          message: 'Login success!',
+        Toast.show({
           type: 'success',
-          backgroundColor: '#440A67',
-          color: '#fff',
+          position: 'top',
+          text1: 'Success',
+          text2: 'Login success',
+          visibilityTime: 800,
+          autoHide: true,
+          topOffset: 30,
+          bottomOffset: 40,
         });
       } else {
-        showMessage({
-          message: `${this.props.auth.msg}`,
-          type: 'danger',
-          backgroundColor: '#d63031',
-          color: '#fff',
+        Toast.show({
+          type: 'error',
+          position: 'top',
+          text1: 'Error',
+          text2: `${this.props.auth.msg}`,
+          visibilityTime: 1000,
+          autoHide: true,
+          topOffset: 30,
+          bottomOffset: 40,
         });
+        // ToastAndroid.showWithGravity(
+        //   `${this.props.auth.msg}`,
+        //   ToastAndroid.LONG,
+        //   ToastAndroid.TOP,
+        // );
       }
     });
   };

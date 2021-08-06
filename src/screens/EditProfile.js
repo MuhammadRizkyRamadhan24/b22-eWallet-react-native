@@ -11,7 +11,7 @@ import {Input} from 'native-base';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import {showMessage} from 'react-native-flash-message';
+import Toast from 'react-native-toast-message';
 import {REACT_APP_BASE_URL} from '@env';
 import {connect} from 'react-redux';
 import {getUserById, changeUser} from '../redux/actions/users';
@@ -48,11 +48,15 @@ class EditProfile extends Component {
         //   ToastAndroid.LONG,
         //   ToastAndroid.TOP,
         // );
-        showMessage({
-          message: 'File to large!',
-          type: 'danger',
-          backgroundColor: '#d63031',
-          color: '#fff',
+        Toast.show({
+          type: 'error',
+          position: 'top',
+          text1: 'Error',
+          text2: 'File to large!',
+          visibilityTime: 1000,
+          autoHide: true,
+          topOffset: 30,
+          bottomOffset: 40,
         });
         this.setState({
           image: null,
@@ -80,11 +84,15 @@ class EditProfile extends Component {
         this.setState({
           isUpdate: !this.state.isUpdate,
         });
-        showMessage({
-          message: 'Success update data!',
+        Toast.show({
           type: 'success',
-          backgroundColor: '#440A67',
-          color: '#fff',
+          position: 'top',
+          text1: 'Success',
+          text2: 'Success update data!',
+          visibilityTime: 1000,
+          autoHide: true,
+          topOffset: 30,
+          bottomOffset: 40,
         });
         // ToastAndroid.showWithGravity(
         //   'Success update data!',
@@ -104,12 +112,21 @@ class EditProfile extends Component {
         this.setState({
           isUpdate: !this.state.isUpdate,
         });
-        showMessage({
-          message: 'Success update data!',
+        Toast.show({
           type: 'success',
-          backgroundColor: '#440A67',
-          color: '#fff',
+          position: 'top',
+          text1: 'Success',
+          text2: 'Success update data!',
+          visibilityTime: 1000,
+          autoHide: true,
+          topOffset: 30,
+          bottomOffset: 40,
         });
+        // ToastAndroid.showWithGravity(
+        //   'Success update data!',
+        //   ToastAndroid.LONG,
+        //   ToastAndroid.TOP,
+        // );
       });
     }
   };

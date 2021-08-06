@@ -9,7 +9,7 @@ import {
 import {Input} from 'native-base';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import {showMessage} from 'react-native-flash-message';
+import Toast from 'react-native-toast-message';
 
 import {connect} from 'react-redux';
 import {topupToUser} from '../redux/actions/topups';
@@ -38,11 +38,15 @@ class Topup extends Component {
       //   ToastAndroid.LONG,
       //   ToastAndroid.TOP,
       // );
-      showMessage({
-        message: 'Success topup!',
+      Toast.show({
         type: 'success',
-        backgroundColor: '#440A67',
-        color: '#fff',
+        position: 'top',
+        text1: 'Success',
+        text2: 'Success topup!',
+        visibilityTime: 800,
+        autoHide: true,
+        topOffset: 30,
+        bottomOffset: 40,
       });
     });
   };

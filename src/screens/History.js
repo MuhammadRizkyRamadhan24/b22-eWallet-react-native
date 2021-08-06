@@ -36,21 +36,40 @@ class History extends Component {
   componentDidMount() {
     const {token} = this.props.auth;
     this.props.historyReceiver(token, this.state.pageReceiver).then(() => {
-      this.setState({
-        historyReceive: this.props.transfers.dataReceiver,
-      });
+      console.log(this.props.transfers.dataReceiver, 'hehe');
+      if (this.props.transfers.dataReceiver === 'User Not Found') {
+        this.setState({
+          historyReceive: [],
+        });
+      } else {
+        this.setState({
+          historyReceive: this.props.transfers.dataReceiver,
+        });
+      }
     });
     this.props.historySender(token, this.state.pageSender).then(() => {
-      this.setState({
-        historySender: this.props.transfers.dataSender,
-      });
+      if (this.props.transfers.dataSender === 'User Not Found') {
+        this.setState({
+          historySender: [],
+        });
+      } else {
+        this.setState({
+          historySender: this.props.transfers.dataSender,
+        });
+      }
     });
     this.props
       .historyTransaction(token, this.state.pageTransaction)
       .then(() => {
-        this.setState({
-          historyTransaction: this.props.transactions.data,
-        });
+        if (this.props.transactions.data === 'User Not Found') {
+          this.setState({
+            historyTransaction: [],
+          });
+        } else {
+          this.setState({
+            historyTransaction: this.props.transactions.data,
+          });
+        }
       });
   }
 
@@ -292,6 +311,7 @@ const styles = StyleSheet.create({
     width: 190,
     fontFamily: 'Roboto-Medium',
     fontSize: 24,
+    color: '#fff',
   },
   wrapButton: {
     paddingHorizontal: 16,

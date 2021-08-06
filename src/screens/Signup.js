@@ -10,7 +10,7 @@ import {
 import {Input} from 'native-base';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import {showMessage} from 'react-native-flash-message';
+import Toast from 'react-native-toast-message';
 import Logo from '../../assets/logo.png';
 
 import {connect} from 'react-redux';
@@ -35,20 +35,33 @@ class Signup extends Component {
           //   ToastAndroid.LONG,
           //   ToastAndroid.TOP,
           // );
-          showMessage({
-            message: 'Signup success!',
+          Toast.show({
             type: 'success',
-            backgroundColor: '#440A67',
-            color: '#fff',
+            position: 'top',
+            text1: 'Success',
+            text2: 'Signup success',
+            visibilityTime: 800,
+            autoHide: true,
+            topOffset: 30,
+            bottomOffset: 40,
           });
           this.props.navigation.navigate('Login');
         } else {
-          showMessage({
-            message: `${this.props.auth.msg}`,
-            type: 'danger',
-            backgroundColor: '#d63031',
-            color: '#fff',
+          Toast.show({
+            type: 'error',
+            position: 'top',
+            text1: 'Error',
+            text2: `${this.props.auth.msg}`,
+            visibilityTime: 1000,
+            autoHide: true,
+            topOffset: 30,
+            bottomOffset: 40,
           });
+          // ToastAndroid.showWithGravity(
+          //   `${this.props.auth.msg}`,
+          //   ToastAndroid.LONG,
+          //   ToastAndroid.TOP,
+          // );
         }
       });
   };
@@ -96,7 +109,6 @@ class Signup extends Component {
                 onBlur={handleBlur('password')}
                 value={values.password}
                 placeholder="Masukin password kamu ya!"
-                keyboardType="visible-password"
               />
               {errors.password ? (
                 <Text style={styles.textError}>{errors.password}</Text>

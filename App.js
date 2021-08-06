@@ -8,6 +8,7 @@ import Home from './src/screens/Home';
 import Profile from './src/screens/Profile';
 import History from './src/screens/History';
 import {NativeBaseProvider} from 'native-base';
+import Toast from 'react-native-toast-message';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
@@ -192,6 +193,7 @@ const App = props => {
           )}
         </Stack.Navigator>
       </NavigationContainer>
+      <Toast ref={ref => Toast.setRef(ref)} />
     </NativeBaseProvider>
   );
 };

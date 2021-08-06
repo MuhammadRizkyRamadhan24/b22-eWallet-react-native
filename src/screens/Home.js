@@ -20,7 +20,7 @@ import iconSchool from '../../assets/pendidikan.png';
 import iconPulsa from '../../assets/pulsa.png';
 import iconStream from '../../assets/streaming.png';
 import PushNotification from 'react-native-push-notification';
-
+import Toast from 'react-native-toast-message';
 import {connect} from 'react-redux';
 import {authNotifToken} from '../redux/actions/auth';
 import {getUserById} from '../redux/actions/users';
@@ -82,6 +82,19 @@ class Home extends Component {
     this.getUser();
   }
 
+  test = () => {
+    Toast.show({
+      type: 'success',
+      position: 'top',
+      text1: 'Hello',
+      text2: 'This is some something 👋',
+      visibilityTime: 800,
+      autoHide: true,
+      topOffset: 30,
+      bottomOffset: 40,
+    });
+  };
+
   render() {
     return (
       <>
@@ -127,7 +140,12 @@ class Home extends Component {
                   )}
                 </TouchableOpacity>
                 <View style={styles.wrapperName}>
-                  <Text style={styles.name}>{this.props.users.data.name}</Text>
+                  {/* <Text style={styles.name}>{this.props.users.data.name}</Text> */}
+                  {this.props.users.data.name !== '' && (
+                    <Text style={styles.name}>
+                      {this.props.users.data.name}
+                    </Text>
+                  )}
                   <Text style={styles.number}>
                     {this.props.users.data.phone_number}
                   </Text>
@@ -185,7 +203,9 @@ class Home extends Component {
                   <Image source={iconSchool} style={styles.iconSchool} />
                   <Text style={styles.textIcon}>Pendidikan</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.wrapperFeature}>
+                <TouchableOpacity
+                  // onPress={this.test}
+                  style={styles.wrapperFeature}>
                   <Image source={iconGame} style={styles.iconGame} />
                   <Text style={styles.textIcon}>Game</Text>
                 </TouchableOpacity>
@@ -202,6 +222,34 @@ class Home extends Component {
                   <Text style={styles.textIcon}>Internet</Text>
                 </TouchableOpacity>
               </View>
+              <ScrollView
+                showsHorizontalScrollIndicator={false}
+                horizontal={true}>
+                <View style={styles.wrapperCard}>
+                  <Image
+                    style={styles.imageCard}
+                    source={{
+                      uri: 'https://www.k24klik.com/blog/wp-content/uploads/2021/03/blog-banner-OVO-CLBK.jpg',
+                    }}
+                  />
+                </View>
+                <View style={styles.wrapperCard}>
+                  <Image
+                    style={styles.imageCard}
+                    source={{
+                      uri: 'https://images-loyalty.ovo.id/public/deal/78/88/l/15438.jpg?ver=1',
+                    }}
+                  />
+                </View>
+                <View style={styles.wrapperCard}>
+                  <Image
+                    style={styles.imageCard}
+                    source={{
+                      uri: 'https://infodigimarket.com/wp-content/uploads/2018/10/180320-ovo.jpg',
+                    }}
+                  />
+                </View>
+              </ScrollView>
             </View>
             {/* </View> */}
           </ScrollView>
@@ -320,7 +368,7 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginTop: 40,
+    marginTop: 30,
     width: 340,
     height: 220,
     backgroundColor: 'white',
@@ -410,5 +458,26 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontFamily: 'Roboto-Regular',
     color: '#440A67',
+  },
+  wrapperCard: {
+    justifyContent: 'center',
+    // padding: 10,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 30,
+    width: 350,
+    height: 130,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    shadowColor: '#000000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.8,
+    elevation: 5,
+    marginHorizontal: 25,
+  },
+  imageCard: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 20,
   },
 });

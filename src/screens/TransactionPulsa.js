@@ -9,7 +9,7 @@ import {
 import {Input} from 'native-base';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import {showMessage} from 'react-native-flash-message';
+import Toast from 'react-native-toast-message';
 
 import {connect} from 'react-redux';
 import {transactionPulsa} from '../redux/actions/transactions';
@@ -20,6 +20,7 @@ class TransactionPulsa extends Component {
     super(props);
     this.state = {
       isUpdate: false,
+      balancePulsa: '',
     };
   }
 
@@ -27,7 +28,7 @@ class TransactionPulsa extends Component {
     const {token} = this.props.auth;
     const data = {
       number: values.number,
-      deductedBalance: values.deductedBalance,
+      deductedBalance: this.state.balancePulsa,
       description: 'Beli Pulsa',
       trxFee: 1500,
     };
@@ -35,17 +36,35 @@ class TransactionPulsa extends Component {
       this.setState({
         isUpdate: !this.state.isUpdate,
       });
-      // ToastAndroid.showWithGravity(
-      //   'Transaction Success!',
-      //   ToastAndroid.LONG,
-      //   ToastAndroid.TOP,
-      // );
-      showMessage({
-        message: 'Transaction Success!',
-        type: 'success',
-        backgroundColor: '#440A67',
-        color: '#fff',
-      });
+      if (this.props.transactions.msg === 'Transaction successfully') {
+        Toast.show({
+          type: 'success',
+          position: 'top',
+          text1: 'Success',
+          text2: 'Transaction Success!',
+          visibilityTime: 800,
+          autoHide: true,
+          topOffset: 30,
+          bottomOffset: 40,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          position: 'top',
+          text1: 'Error',
+          text2: `${this.props.transactions.msg}`,
+          visibilityTime: 2000,
+          autoHide: true,
+          topOffset: 30,
+          bottomOffset: 40,
+        });
+      }
+    });
+  };
+
+  press = value => {
+    this.setState({
+      balancePulsa: value,
     });
   };
 
@@ -57,24 +76,24 @@ class TransactionPulsa extends Component {
   }
 
   render() {
-    const str = this.props.users.data.balance;
-    const num = str.split(',').join('');
-    const balance = parseInt(num, 10);
-    console.log(balance);
+    // const str = this.props.users.data.balance;
+    // const num = str.split(',').join('');
+    // const balance = parseInt(num, 10);
     const validationSchema = Yup.object().shape({
       number: Yup.string().min(12, 'Minimal 11 angka!').required(''),
-      deductedBalance: Yup.number()
-        .min(5000, 'Minimal 5.000!')
-        .max(balance, 'Balance tidak cukup!')
-        .required(''),
+      // deductedBalance: Yup.number()
+      //   .min(5000, 'Minimal 5.000!')
+      //   .max(balance, 'Balance tidak cukup!')
+      //   .required(''),
     });
+    console.log(this.props.transactions);
     return (
       <View style={styles.wrapper}>
         <Formik
           validationSchema={validationSchema}
           initialValues={{
             number: '',
-            deductedBalance: '',
+            // deductedBalance: `${this.state.balancePulsa}`,
           }}
           onSubmit={values => this.transactionPulsa(values)}>
           {({handleChange, handleBlur, handleSubmit, errors, values}) => (
@@ -95,7 +114,9 @@ class TransactionPulsa extends Component {
               />
               {errors.number ? (
                 <Text style={styles.textError}>{errors.number}</Text>
-              ) : null}
+              ) : (
+                <Text style={styles.textError} />
+              )}
               <Text style={styles.text}>Nominal pulsa</Text>
               <Input
                 width={360}
@@ -105,14 +126,46 @@ class TransactionPulsa extends Component {
                 backgroundColor="#E0DEDE"
                 type="number"
                 keyboardType="number-pad"
-                onChangeText={handleChange('deductedBalance')}
-                onBlur={handleBlur('deductedBalance')}
-                value={values.deductedBalance}
+                // onChangeText={handleChange('deductedBalance')}
+                // onBlur={handleBlur('deductedBalance')}
+                value={this.state.balancePulsa}
                 placeholder="Minimal 5.000"
               />
-              {errors.deductedBalance ? (
+              {/* {errors.deductedBalance ? (
                 <Text style={styles.textError}>{errors.deductedBalance}</Text>
-              ) : null}
+              ) : null} */}
+              <View style={styles.wrapperPulsa}>
+                <TouchableOpacity onPress={() => this.press('5000')}>
+                  <View style={styles.pulsa}>
+                    <Text style={styles.balancePulsa}>5,000</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.press('10000')}>
+                  <View style={styles.pulsa}>
+                    <Text style={styles.balancePulsa}>10,000</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.press('20000')}>
+                  <View style={styles.pulsa}>
+                    <Text style={styles.balancePulsa}>20,000</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.press('50000')}>
+                  <View style={styles.pulsa}>
+                    <Text style={styles.balancePulsa}>50,000</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.press('100000')}>
+                  <View style={styles.pulsa}>
+                    <Text style={styles.balancePulsa}>100,000</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.press('150000')}>
+                  <View style={styles.pulsa}>
+                    <Text style={styles.balancePulsa}>150,000</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
               <TouchableOpacity style={styles.button} onPress={handleSubmit}>
                 <Text style={styles.textButton}>Beli Pulsa Sekarang</Text>
               </TouchableOpacity>
@@ -150,9 +203,10 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontFamily: 'Roboto-Bold',
     fontSize: 15,
+    color: '#000',
   },
   button: {
-    marginTop: 380,
+    marginTop: 50,
     backgroundColor: '#440A67',
     width: 360,
     height: 60,
@@ -169,6 +223,31 @@ const styles = StyleSheet.create({
   textButton: {
     fontFamily: 'Roboto-Bold',
     color: '#fff',
+    fontSize: 15,
+  },
+  wrapperPulsa: {
+    marginTop: 30,
+    width: '100%',
+    height: 300,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  pulsa: {
+    width: 155,
+    height: 80,
+    backgroundColor: 'white',
+    margin: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    shadowColor: '#000000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.8,
+    elevation: 5,
+  },
+  balancePulsa: {
+    fontFamily: 'Roboto-Bold',
     fontSize: 15,
   },
 });
