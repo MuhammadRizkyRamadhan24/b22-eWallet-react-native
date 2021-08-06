@@ -12,10 +12,10 @@ import * as Yup from 'yup';
 import {showMessage} from 'react-native-flash-message';
 
 import {connect} from 'react-redux';
-import {transferToUser} from '../redux/actions/transfers';
+import {transactionPulsa} from '../redux/actions/transactions';
 import {getUserById} from '../redux/actions/users';
 
-class Transfer extends Component {
+class TransactionPulsa extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,24 +23,25 @@ class Transfer extends Component {
     };
   }
 
-  transfer = values => {
+  transactionPulsa = values => {
     const {token} = this.props.auth;
     const data = {
-      phoneNumberReceiver: values.phoneNumberReceiver,
+      number: values.number,
       deductedBalance: values.deductedBalance,
-      description: values.description,
+      description: 'Beli Pulsa',
+      trxFee: 1500,
     };
-    this.props.transferToUser(token, data).then(() => {
+    this.props.transactionPulsa(token, data).then(() => {
       this.setState({
         isUpdate: !this.state.isUpdate,
       });
       // ToastAndroid.showWithGravity(
-      //   'Success transfer!',
+      //   'Transaction Success!',
       //   ToastAndroid.LONG,
       //   ToastAndroid.TOP,
       // );
       showMessage({
-        message: 'Success transfer!',
+        message: 'Transaction Success!',
         type: 'success',
         backgroundColor: '#440A67',
         color: '#fff',
@@ -61,11 +62,9 @@ class Transfer extends Component {
     const balance = parseInt(num, 10);
     console.log(balance);
     const validationSchema = Yup.object().shape({
-      phoneNumberReceiver: Yup.string()
-        .min(11, 'Minimal 11 nomor!')
-        .required(''),
+      number: Yup.string().min(12, 'Minimal 11 angka!').required(''),
       deductedBalance: Yup.number()
-        .min(10000, 'Minimal 10.000!')
+        .min(5000, 'Minimal 5.000!')
         .max(balance, 'Balance tidak cukup!')
         .required(''),
     });
@@ -74,30 +73,30 @@ class Transfer extends Component {
         <Formik
           validationSchema={validationSchema}
           initialValues={{
-            phoneNumberReceiver: '',
+            number: '',
             deductedBalance: '',
-            description: '',
           }}
-          onSubmit={values => this.transfer(values)}>
+          onSubmit={values => this.transactionPulsa(values)}>
           {({handleChange, handleBlur, handleSubmit, errors, values}) => (
             <View style={styles.wrapperInput}>
+              <Text style={styles.text}>Nomor</Text>
               <Input
                 width={360}
                 marginTop={5}
-                variant="underlined"
+                fontSize={20}
+                height={20}
+                backgroundColor="#E0DEDE"
                 type="number"
                 keyboardType="number-pad"
-                onChangeText={handleChange('phoneNumberReceiver')}
-                onBlur={handleBlur('phoneNumberReceiver')}
-                value={values.phoneNumberReceiver}
-                placeholder="Masukan Nomor Tujuan"
+                onChangeText={handleChange('number')}
+                onBlur={handleBlur('number')}
+                value={values.number}
+                placeholder="Minimal 11 angka"
               />
-              {errors.phoneNumberReceiver ? (
-                <Text style={styles.textError}>
-                  {errors.phoneNumberReceiver}
-                </Text>
+              {errors.number ? (
+                <Text style={styles.textError}>{errors.number}</Text>
               ) : null}
-              <Text style={styles.text}>Nominal transfer</Text>
+              <Text style={styles.text}>Nominal pulsa</Text>
               <Input
                 width={360}
                 marginTop={5}
@@ -109,23 +108,13 @@ class Transfer extends Component {
                 onChangeText={handleChange('deductedBalance')}
                 onBlur={handleBlur('deductedBalance')}
                 value={values.deductedBalance}
-                placeholder="Minimal 10.000"
+                placeholder="Minimal 5.000"
               />
               {errors.deductedBalance ? (
                 <Text style={styles.textError}>{errors.deductedBalance}</Text>
               ) : null}
-              <Input
-                width={360}
-                marginTop={10}
-                variant="underlined"
-                onChangeText={handleChange('description')}
-                onBlur={handleBlur('description')}
-                value={values.description}
-                placeholder="Pesan (optional)"
-              />
-
               <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                <Text style={styles.textButton}>Top Up Sekarang</Text>
+                <Text style={styles.textButton}>Beli Pulsa Sekarang</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -136,14 +125,14 @@ class Transfer extends Component {
 }
 
 const mapStateToProps = state => ({
-  transfers: state.transfers,
+  transactions: state.transactions,
   auth: state.auth,
   users: state.users,
 });
 
-const mapDispatchToProps = {transferToUser, getUserById};
+const mapDispatchToProps = {transactionPulsa, getUserById};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Transfer);
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionPulsa);
 
 const styles = StyleSheet.create({
   wrapper: {

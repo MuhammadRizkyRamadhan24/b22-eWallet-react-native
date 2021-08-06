@@ -22,6 +22,7 @@ import {connect} from 'react-redux';
 import {LogBox} from 'react-native';
 import Transfer from './src/screens/Transfer';
 import EditProfile from './src/screens/EditProfile';
+import TransactionPulsa from './src/screens/TransactionPulsa';
 LogBox.ignoreLogs(['Reanimated 2']);
 
 const Stack = createStackNavigator();
@@ -164,6 +165,20 @@ const App = props => {
                 component={EditProfile}
                 options={{
                   title: 'Edit Profile',
+                  headerStyle: {
+                    backgroundColor: '#440A67',
+                  },
+                  headerTintColor: '#fff',
+                  headerTitleStyle: {
+                    fontWeight: 'bold',
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="Pulsa"
+                component={TransactionPulsa}
+                options={{
+                  title: 'Pulsa',
                   headerStyle: {
                     backgroundColor: '#440A67',
                   },

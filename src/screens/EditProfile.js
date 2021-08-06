@@ -5,12 +5,13 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  ToastAndroid,
+  // ToastAndroid,
 } from 'react-native';
 import {Input} from 'native-base';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {showMessage} from 'react-native-flash-message';
 import {REACT_APP_BASE_URL} from '@env';
 import {connect} from 'react-redux';
 import {getUserById, changeUser} from '../redux/actions/users';
@@ -38,10 +39,31 @@ class EditProfile extends Component {
 
   selectPicture = e => {
     if (!e.didCancel) {
-      this.setState({
-        pictureUri: e.assets[0].uri,
-        image: e.assets[0],
-      });
+      const maxSize = 1024 * 1024 * 2;
+      console.log(e.assets[0].fileSize);
+      console.log(maxSize);
+      if (e.assets[0].fileSize > maxSize) {
+        // ToastAndroid.showWithGravity(
+        //   'File to large!',
+        //   ToastAndroid.LONG,
+        //   ToastAndroid.TOP,
+        // );
+        showMessage({
+          message: 'File to large!',
+          type: 'danger',
+          backgroundColor: '#d63031',
+          color: '#fff',
+        });
+        this.setState({
+          image: null,
+          pictureUri: '',
+        });
+      } else {
+        this.setState({
+          pictureUri: e.assets[0].uri,
+          image: e.assets[0],
+        });
+      }
     }
   };
 
@@ -58,17 +80,17 @@ class EditProfile extends Component {
         this.setState({
           isUpdate: !this.state.isUpdate,
         });
-        // showMessage({
-        //   message: 'Success update data!',
-        //   type: 'success',
-        //   backgroundColor: '#6A4029',
-        //   color: '#fff',
-        // });
-        ToastAndroid.showWithGravity(
-          'Success update data!',
-          ToastAndroid.LONG,
-          ToastAndroid.TOP,
-        );
+        showMessage({
+          message: 'Success update data!',
+          type: 'success',
+          backgroundColor: '#440A67',
+          color: '#fff',
+        });
+        // ToastAndroid.showWithGravity(
+        //   'Success update data!',
+        //   ToastAndroid.LONG,
+        //   ToastAndroid.TOP,
+        // );
       });
     } else {
       const data = {
@@ -82,11 +104,12 @@ class EditProfile extends Component {
         this.setState({
           isUpdate: !this.state.isUpdate,
         });
-        ToastAndroid.showWithGravity(
-          'Success update data!',
-          ToastAndroid.LONG,
-          ToastAndroid.TOP,
-        );
+        showMessage({
+          message: 'Success update data!',
+          type: 'success',
+          backgroundColor: '#440A67',
+          color: '#fff',
+        });
       });
     }
   };
@@ -142,7 +165,7 @@ class EditProfile extends Component {
                 )}
                 <TouchableOpacity
                   onPress={() =>
-                    launchImageLibrary({quality: 0.5}, this.selectPicture)
+                    launchImageLibrary({quality: 1}, this.selectPicture)
                   }>
                   <Text style={styles.textImage}>Perbarui Foto Profile</Text>
                 </TouchableOpacity>

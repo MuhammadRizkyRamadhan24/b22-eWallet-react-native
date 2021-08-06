@@ -5,12 +5,13 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  ToastAndroid,
+  // ToastAndroid,
 } from 'react-native';
 import {Input} from 'native-base';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import Logo from '../../assets/logo.png';
+import {showMessage} from 'react-native-flash-message';
 
 import {connect} from 'react-redux';
 import {authLogin, authNotifToken} from '../redux/actions/auth';
@@ -31,17 +32,24 @@ class Login extends Component {
   login = values => {
     this.props.authLogin(values.phoneNumber, values.password).then(() => {
       if (this.props.auth.msg === 'Login Success') {
-        ToastAndroid.showWithGravity(
-          'Login success',
-          ToastAndroid.LONG,
-          ToastAndroid.TOP,
-        );
+        // ToastAndroid.showWithGravity(
+        //   'Login success',
+        //   ToastAndroid.LONG,
+        //   ToastAndroid.TOP,
+        // );
+        showMessage({
+          message: 'Login success!',
+          type: 'success',
+          backgroundColor: '#440A67',
+          color: '#fff',
+        });
       } else {
-        ToastAndroid.showWithGravity(
-          `${this.props.auth.msg}`,
-          ToastAndroid.LONG,
-          ToastAndroid.TOP,
-        );
+        showMessage({
+          message: `${this.props.auth.msg}`,
+          type: 'danger',
+          backgroundColor: '#d63031',
+          color: '#fff',
+        });
       }
     });
   };

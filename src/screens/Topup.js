@@ -4,11 +4,12 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  ToastAndroid,
+  // ToastAndroid,
 } from 'react-native';
 import {Input} from 'native-base';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {showMessage} from 'react-native-flash-message';
 
 import {connect} from 'react-redux';
 import {topupToUser} from '../redux/actions/topups';
@@ -32,11 +33,17 @@ class Topup extends Component {
       this.setState({
         isUpdate: !this.state.isUpdate,
       });
-      ToastAndroid.showWithGravity(
-        'Success topup!',
-        ToastAndroid.LONG,
-        ToastAndroid.TOP,
-      );
+      // ToastAndroid.showWithGravity(
+      //   'Success topup!',
+      //   ToastAndroid.LONG,
+      //   ToastAndroid.TOP,
+      // );
+      showMessage({
+        message: 'Success topup!',
+        type: 'success',
+        backgroundColor: '#440A67',
+        color: '#fff',
+      });
     });
   };
 

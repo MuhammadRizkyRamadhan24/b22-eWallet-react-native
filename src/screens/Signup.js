@@ -5,11 +5,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  ToastAndroid,
+  // ToastAndroid,
 } from 'react-native';
 import {Input} from 'native-base';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {showMessage} from 'react-native-flash-message';
 import Logo from '../../assets/logo.png';
 
 import {connect} from 'react-redux';
@@ -29,18 +30,25 @@ class Signup extends Component {
       .authRegister(values.email, values.phoneNumber, values.password)
       .then(() => {
         if (this.props.auth.msg === 'User has been create') {
-          ToastAndroid.showWithGravity(
-            'Signup success',
-            ToastAndroid.LONG,
-            ToastAndroid.TOP,
-          );
+          // ToastAndroid.showWithGravity(
+          //   'Signup success',
+          //   ToastAndroid.LONG,
+          //   ToastAndroid.TOP,
+          // );
+          showMessage({
+            message: 'Signup success!',
+            type: 'success',
+            backgroundColor: '#440A67',
+            color: '#fff',
+          });
           this.props.navigation.navigate('Login');
         } else {
-          ToastAndroid.showWithGravity(
-            `${this.props.auth.msg}`,
-            ToastAndroid.LONG,
-            ToastAndroid.TOP,
-          );
+          showMessage({
+            message: `${this.props.auth.msg}`,
+            type: 'danger',
+            backgroundColor: '#d63031',
+            color: '#fff',
+          });
         }
       });
   };

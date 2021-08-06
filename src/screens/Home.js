@@ -174,12 +174,14 @@ class Home extends Component {
               </View>
               <View style={styles.wrapperPayment}>
                 <TouchableOpacity
-                  onPress={this.triggerNotif}
+                  onPress={() => this.props.navigation.navigate('Pulsa')}
                   style={styles.wrapperFeature}>
                   <Image source={iconPulsa} style={styles.iconPulsa} />
                   <Text style={styles.textIcon}>Pulsa</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.wrapperFeature}>
+                <TouchableOpacity
+                  // onPress={this.triggerNotif}
+                  style={styles.wrapperFeature}>
                   <Image source={iconSchool} style={styles.iconSchool} />
                   <Text style={styles.textIcon}>Pendidikan</Text>
                 </TouchableOpacity>

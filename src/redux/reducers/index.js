@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from './auth';
 // import products from './products';
 // import categories from './categories';
-// import transactions from './transactions';
+import transactions from './transactions';
 import topups from './topups';
 import transfers from './transfers';
 import users from './users';
@@ -21,7 +21,7 @@ const rootReducer = combineReducers({
   // carts,
   // products,
   // categories,
-  // transactions,
+  transactions,
   users,
   transfers,
   topups,

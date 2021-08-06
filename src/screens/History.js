@@ -5,10 +5,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
-  ActivityIndicator,
+  // ActivityIndicator,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {historyReceiver, historySender} from '../redux/actions/transfers';
+import {historyTransaction} from '../redux/actions/transactions';
 
 // const footerComponent = () => {
 //   return (
@@ -25,8 +26,10 @@ class History extends Component {
       status: 'Transfer',
       pageReceiver: 1,
       pageSender: 1,
+      pageTransaction: 1,
       historyReceive: [],
       historySender: [],
+      historyTransaction: [],
     };
   }
 
@@ -42,7 +45,36 @@ class History extends Component {
         historySender: this.props.transfers.dataSender,
       });
     });
+    this.props
+      .historyTransaction(token, this.state.pageTransaction)
+      .then(() => {
+        this.setState({
+          historyTransaction: this.props.transactions.data,
+        });
+      });
   }
+
+  loadMoreTransaction = () => {
+    const {token} = this.props.auth;
+    this.setState(
+      {
+        pageTransaction: this.state.pageTransaction + 1,
+      },
+      () => {
+        this.props
+          .historyTransaction(token, this.state.pageTransaction)
+          .then(() => {
+            if (this.props.transactions.msg !== 'User Not Found') {
+              this.setState({
+                historyTransaction: this.state.historyTransaction.concat(
+                  this.props.transactions.data,
+                ),
+              });
+            }
+          });
+      },
+    );
+  };
 
   loadMoreReceiver = () => {
     const {token} = this.props.auth;
@@ -91,10 +123,11 @@ class History extends Component {
         <View style={styles.wrapperHeader}>
           <Text style={styles.titleBalance}>Balance</Text>
           <Text style={styles.balance}>{this.props.users.data.balance}</Text>
+          <Text style={styles.title}>{this.state.status}</Text>
         </View>
         <View style={styles.wrapperContent}>
           <View style={styles.nav}>
-            <Text style={styles.title}>{this.state.status}</Text>
+            {/* <Text style={styles.title}>{this.state.status}</Text> */}
             <TouchableOpacity
               onPress={() => this.setState({status: 'Transfer'})}
               style={styles.wrapButton}>
@@ -104,6 +137,11 @@ class History extends Component {
               onPress={() => this.setState({status: 'Receive'})}
               style={styles.wrapButton}>
               <Text style={styles.textButton}>Receive</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.setState({status: 'Transactions'})}
+              style={styles.wrapButton}>
+              <Text style={styles.textButton}>Transactions</Text>
             </TouchableOpacity>
           </View>
           {this.state.status === 'Transfer' && (
@@ -161,11 +199,30 @@ class History extends Component {
               )}
               onEndReached={this.loadMoreReceiver}
               onEndReachedThreshold={0}
-              // ListFooterComponent={
-              //   this.props.transfers.msgReceiver !== 'User Not Found' &&
-              //   footerComponent
-              // }
-              // ListFooterComponentStyle={styles.footer}
+            />
+          )}
+          {this.state.status === 'Transactions' && (
+            <FlatList
+              style={styles.wrapperCard}
+              scrollEnabled={true}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={item => item.id}
+              data={this.state.historyTransaction}
+              renderItem={({item}) => (
+                <View style={styles.card}>
+                  <View style={styles.cardLeft}>
+                    <Text style={styles.textName}>{item.refNo}</Text>
+                    <Text style={styles.textDesc}>{item.description}</Text>
+                  </View>
+                  <View style={styles.cardRight}>
+                    <Text style={styles.textBalance}>
+                      {item.deductedBalance}
+                    </Text>
+                  </View>
+                </View>
+              )}
+              onEndReached={this.loadMoreTransaction}
+              onEndReachedThreshold={0}
             />
           )}
           {/* <View style={styles.wrapperCard}>
@@ -189,9 +246,10 @@ const mapStateToProps = state => ({
   auth: state.auth,
   users: state.users,
   transfers: state.transfers,
+  transactions: state.transactions,
 });
 
-const mapDispatchToProps = {historyReceiver, historySender};
+const mapDispatchToProps = {historyReceiver, historySender, historyTransaction};
 
 export default connect(mapStateToProps, mapDispatchToProps)(History);
 
@@ -210,6 +268,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   titleBalance: {
+    marginTop: 20,
     fontFamily: 'Roboto-Medium',
     color: '#FFF',
     fontSize: 17,
@@ -226,14 +285,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
+    marginTop: 40,
     width: 190,
     fontFamily: 'Roboto-Medium',
-    fontSize: 20,
+    fontSize: 24,
   },
   wrapButton: {
-    paddingHorizontal: 8,
+    paddingHorizontal: 16,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -269,12 +330,12 @@ const styles = StyleSheet.create({
   },
   textName: {
     fontFamily: 'Roboto-Bold',
-    fontSize: 15,
+    fontSize: 13,
   },
   textDesc: {
     marginTop: 10,
     fontFamily: 'Roboto-thin',
-    fontSize: 13,
+    fontSize: 11,
     color: 'gray',
   },
   textBalance: {
