@@ -5,10 +5,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  // ToastAndroid,
+  Alert,
 } from 'react-native';
 import {Input} from 'native-base';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import Toast from 'react-native-toast-message';
@@ -17,7 +17,7 @@ import {connect} from 'react-redux';
 import {getUserById, changeUser} from '../redux/actions/users';
 
 const validationSchema = Yup.object().shape({
-  fullName: Yup.string(),
+  fullName: Yup.string().required('Harus Diisi!'),
   email: Yup.string().email('Email tidak valid!').required('Harus Diisi!'),
   phoneNumber: Yup.string()
     .min(11, 'Minimal 11 angka!')
@@ -40,14 +40,7 @@ class EditProfile extends Component {
   selectPicture = e => {
     if (!e.didCancel) {
       const maxSize = 1024 * 1024 * 2;
-      console.log(e.assets[0].fileSize);
-      console.log(maxSize);
       if (e.assets[0].fileSize > maxSize) {
-        // ToastAndroid.showWithGravity(
-        //   'File to large!',
-        //   ToastAndroid.LONG,
-        //   ToastAndroid.TOP,
-        // );
         Toast.show({
           type: 'error',
           position: 'top',
@@ -71,6 +64,36 @@ class EditProfile extends Component {
     }
   };
 
+  setPicture = () => {
+    Alert.alert('Select Picture', 'Please choose a picture', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'Gallery',
+        onPress: () => launchImageLibrary({quality: 0.5}, this.selectPicture),
+      },
+      {
+        text: 'Camera',
+        onPress: () => launchCamera({quality: 0.5}, this.selectPicture),
+      },
+    ]);
+  };
+
+  alertEdit = values => {
+    Alert.alert('Update Profile', 'Do you want to Update?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'Yes',
+        onPress: () => this.edit(values),
+      },
+    ]);
+  };
+
   edit = values => {
     const {token} = this.props.auth;
     if (this.state.image === null) {
@@ -79,7 +102,6 @@ class EditProfile extends Component {
         email: values.email,
         phoneNumber: values.phoneNumber,
       };
-      // console.log(data);
       this.props.changeUser(token, data).then(() => {
         this.setState({
           isUpdate: !this.state.isUpdate,
@@ -94,11 +116,7 @@ class EditProfile extends Component {
           topOffset: 30,
           bottomOffset: 40,
         });
-        // ToastAndroid.showWithGravity(
-        //   'Success update data!',
-        //   ToastAndroid.LONG,
-        //   ToastAndroid.TOP,
-        // );
+        this.props.navigation.navigate('Dashboard');
       });
     } else {
       const data = {
@@ -107,7 +125,6 @@ class EditProfile extends Component {
         phoneNumber: values.phoneNumber,
         image: this.state.image,
       };
-      // console.log(data);
       this.props.changeUser(token, data).then(() => {
         this.setState({
           isUpdate: !this.state.isUpdate,
@@ -122,11 +139,7 @@ class EditProfile extends Component {
           topOffset: 30,
           bottomOffset: 40,
         });
-        // ToastAndroid.showWithGravity(
-        //   'Success update data!',
-        //   ToastAndroid.LONG,
-        //   ToastAndroid.TOP,
-        // );
+        this.props.navigation.navigate('Dashboard');
       });
     }
   };
@@ -139,7 +152,6 @@ class EditProfile extends Component {
   }
 
   render() {
-    // console.log(this.props.users.data.name);
     return (
       <View style={styles.wrapper}>
         <Formik
@@ -149,7 +161,7 @@ class EditProfile extends Component {
             email: `${this.props.users.data.email}`,
             phoneNumber: `${this.props.users.data.phone_number}`,
           }}
-          onSubmit={values => this.edit(values)}>
+          onSubmit={values => this.alertEdit(values)}>
           {({handleChange, handleBlur, handleSubmit, errors, values}) => (
             <View style={styles.wrapperInput}>
               <View style={styles.wrapperImage}>
@@ -180,11 +192,10 @@ class EditProfile extends Component {
                     }
                   />
                 )}
-                <TouchableOpacity
-                  onPress={() =>
-                    launchImageLibrary({quality: 1}, this.selectPicture)
-                  }>
-                  <Text style={styles.textImage}>Perbarui Foto Profile</Text>
+                <TouchableOpacity onPress={this.setPicture}>
+                  <Text style={styles.textImage}>
+                    Perbarui Foto Profile (Max 2MB)
+                  </Text>
                 </TouchableOpacity>
               </View>
               <Text style={styles.textLabel}>Nama Lengkap</Text>

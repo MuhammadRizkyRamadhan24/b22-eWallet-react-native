@@ -1,12 +1,5 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  // ToastAndroid,
-} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {Input} from 'native-base';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
@@ -17,11 +10,11 @@ import {connect} from 'react-redux';
 import {authRegister} from '../redux/actions/auth';
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email('Email tidak valid!').required('Harus Diisi!'),
+  email: Yup.string().email('Email tidak valid!').required(''),
   phoneNumber: Yup.string()
     .min(11, 'Minimal 11 angka!')
     .required('Harus Diisi!'),
-  password: Yup.string().min(8, 'Minimal 8 karakter!').required('Harus Diisi!'),
+  password: Yup.string().min(8, 'Minimal 8 karakter!').required(''),
 });
 
 class Signup extends Component {
@@ -30,11 +23,6 @@ class Signup extends Component {
       .authRegister(values.email, values.phoneNumber, values.password)
       .then(() => {
         if (this.props.auth.msg === 'User has been create') {
-          // ToastAndroid.showWithGravity(
-          //   'Signup success',
-          //   ToastAndroid.LONG,
-          //   ToastAndroid.TOP,
-          // );
           Toast.show({
             type: 'success',
             position: 'top',
@@ -57,11 +45,6 @@ class Signup extends Component {
             topOffset: 30,
             bottomOffset: 40,
           });
-          // ToastAndroid.showWithGravity(
-          //   `${this.props.auth.msg}`,
-          //   ToastAndroid.LONG,
-          //   ToastAndroid.TOP,
-          // );
         }
       });
   };

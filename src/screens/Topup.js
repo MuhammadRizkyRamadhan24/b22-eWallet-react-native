@@ -1,11 +1,5 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  // ToastAndroid,
-} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import {Input} from 'native-base';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
@@ -33,11 +27,6 @@ class Topup extends Component {
       this.setState({
         isUpdate: !this.state.isUpdate,
       });
-      // ToastAndroid.showWithGravity(
-      //   'Success topup!',
-      //   ToastAndroid.LONG,
-      //   ToastAndroid.TOP,
-      // );
       Toast.show({
         type: 'success',
         position: 'top',
@@ -48,7 +37,21 @@ class Topup extends Component {
         topOffset: 30,
         bottomOffset: 40,
       });
+      this.props.navigation.navigate('Dashboard');
     });
+  };
+
+  alertTopup = values => {
+    Alert.alert('Confirm Topup', 'Do you want to Topup?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'Yes',
+        onPress: () => this.topup(values),
+      },
+    ]);
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -64,7 +67,7 @@ class Topup extends Component {
         <Formik
           validationSchema={validationSchema}
           initialValues={{deductedBalance: ''}}
-          onSubmit={values => this.topup(values)}>
+          onSubmit={values => this.alertTopup(values)}>
           {({handleChange, handleBlur, handleSubmit, errors, values}) => (
             <View style={styles.wrapperInput}>
               <Text style={styles.text}>Masukan nominal Top Up!</Text>

@@ -20,6 +20,7 @@ import iconSchool from '../../assets/pendidikan.png';
 import iconPulsa from '../../assets/pulsa.png';
 import iconStream from '../../assets/streaming.png';
 import PushNotification from 'react-native-push-notification';
+import RNBootSplash from 'react-native-bootsplash';
 import Toast from 'react-native-toast-message';
 import {connect} from 'react-redux';
 import {authNotifToken} from '../redux/actions/auth';
@@ -80,6 +81,7 @@ class Home extends Component {
     const {token, notifToken} = this.props.auth;
     this.props.authNotifToken(token, notifToken);
     this.getUser();
+    RNBootSplash.hide({fade: true});
   }
 
   test = () => {
@@ -197,15 +199,11 @@ class Home extends Component {
                   <Image source={iconPulsa} style={styles.iconPulsa} />
                   <Text style={styles.textIcon}>Pulsa</Text>
                 </TouchableOpacity>
-                <TouchableOpacity
-                  // onPress={this.triggerNotif}
-                  style={styles.wrapperFeature}>
+                <TouchableOpacity style={styles.wrapperFeature}>
                   <Image source={iconSchool} style={styles.iconSchool} />
                   <Text style={styles.textIcon}>Pendidikan</Text>
                 </TouchableOpacity>
-                <TouchableOpacity
-                  // onPress={this.test}
-                  style={styles.wrapperFeature}>
+                <TouchableOpacity style={styles.wrapperFeature}>
                   <Image source={iconGame} style={styles.iconGame} />
                   <Text style={styles.textIcon}>Game</Text>
                 </TouchableOpacity>
@@ -461,7 +459,6 @@ const styles = StyleSheet.create({
   },
   wrapperCard: {
     justifyContent: 'center',
-    // padding: 10,
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginTop: 30,

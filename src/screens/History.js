@@ -1,12 +1,5 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList,
-  // ActivityIndicator,
-} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import {connect} from 'react-redux';
 import {historyReceiver, historySender} from '../redux/actions/transfers';
 import {historyTransaction} from '../redux/actions/transactions';
@@ -136,7 +129,6 @@ class History extends Component {
   };
 
   render() {
-    // console.log(this.state.historySender);
     return (
       <View style={styles.wrapper}>
         <View style={styles.wrapperHeader}>

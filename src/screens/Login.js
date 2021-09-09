@@ -1,12 +1,5 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  // ToastAndroid,
-} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {Input} from 'native-base';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
@@ -17,10 +10,8 @@ import {connect} from 'react-redux';
 import {authLogin, authNotifToken} from '../redux/actions/auth';
 
 const validationSchema = Yup.object().shape({
-  phoneNumber: Yup.string()
-    .min(11, 'Minimal 11 angka!')
-    .required('Harus Diisi!'),
-  password: Yup.string().min(8, 'Minimal 8 karakter!').required('Harus Diisi!'),
+  phoneNumber: Yup.string().min(11, 'Minimal 11 angka!').required(''),
+  password: Yup.string().min(8, 'Minimal 8 karakter!').required(''),
 });
 
 class Login extends Component {
@@ -32,11 +23,6 @@ class Login extends Component {
   login = values => {
     this.props.authLogin(values.phoneNumber, values.password).then(() => {
       if (this.props.auth.msg === 'Login Success') {
-        // ToastAndroid.showWithGravity(
-        //   'Login success',
-        //   ToastAndroid.LONG,
-        //   ToastAndroid.TOP,
-        // );
         Toast.show({
           type: 'success',
           position: 'top',
@@ -58,17 +44,11 @@ class Login extends Component {
           topOffset: 30,
           bottomOffset: 40,
         });
-        // ToastAndroid.showWithGravity(
-        //   `${this.props.auth.msg}`,
-        //   ToastAndroid.LONG,
-        //   ToastAndroid.TOP,
-        // );
       }
     });
   };
 
   render() {
-    // console.log(this.props.auth);
     return (
       <View style={styles.wrapper}>
         <Image style={styles.logo} source={Logo} />

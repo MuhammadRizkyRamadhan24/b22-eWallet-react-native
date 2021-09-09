@@ -1,11 +1,5 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  // ToastAndroid,
-} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import {Input} from 'native-base';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
@@ -22,6 +16,19 @@ class Transfer extends Component {
       isUpdate: false,
     };
   }
+
+  alertTransfer = values => {
+    Alert.alert('Confirm Transfer', 'Do you want to Transfer?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'Yes',
+        onPress: () => this.transfer(values),
+      },
+    ]);
+  };
 
   transfer = values => {
     const {token} = this.props.auth;
@@ -45,6 +52,7 @@ class Transfer extends Component {
           topOffset: 30,
           bottomOffset: 40,
         });
+        this.props.navigation.navigate('Dashboard');
       } else {
         this.setState({
           isUpdate: !this.state.isUpdate,
@@ -93,7 +101,7 @@ class Transfer extends Component {
             deductedBalance: '',
             description: '',
           }}
-          onSubmit={values => this.transfer(values)}>
+          onSubmit={values => this.alertTransfer(values)}>
           {({handleChange, handleBlur, handleSubmit, errors, values}) => (
             <View style={styles.wrapperInput}>
               <Input
