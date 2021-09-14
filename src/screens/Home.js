@@ -23,7 +23,7 @@ import PushNotification from 'react-native-push-notification';
 import RNBootSplash from 'react-native-bootsplash';
 import Toast from 'react-native-toast-message';
 import {connect} from 'react-redux';
-import {authNotifToken} from '../redux/actions/auth';
+import {authNotifToken, authLogout} from '../redux/actions/auth';
 import {getUserById} from '../redux/actions/users';
 
 class Home extends Component {
@@ -51,6 +51,19 @@ class Home extends Component {
       this.setState({
         loading: false,
       });
+      if (this.props.users.msg === 'You Must Login First') {
+        this.props.authLogout();
+        Toast.show({
+          type: 'error',
+          position: 'top',
+          text1: 'Error',
+          text2: `${this.props.transaction.errMsg}`,
+          visibilityTime: 1000,
+          autoHide: true,
+          topOffset: 30,
+          bottomOffset: 40,
+        });
+      }
     });
   };
 
@@ -66,6 +79,19 @@ class Home extends Component {
             this.setState({
               loading: false,
             });
+            if (this.props.users.msg === 'You Must Login First') {
+              this.props.authLogout();
+              Toast.show({
+                type: 'error',
+                position: 'top',
+                text1: 'Error',
+                text2: `${this.props.transaction.errMsg}`,
+                visibilityTime: 1000,
+                autoHide: true,
+                topOffset: 30,
+                bottomOffset: 40,
+              });
+            }
           });
         }
       },
@@ -271,7 +297,7 @@ const mapStateToProps = state => ({
   users: state.users,
 });
 
-const mapDispatchToProps = {authNotifToken, getUserById};
+const mapDispatchToProps = {authNotifToken, getUserById, authLogout};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
 

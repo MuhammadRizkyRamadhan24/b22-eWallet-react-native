@@ -69,6 +69,16 @@ class Profile extends Component {
                 />
                 <Text style={styles.textCardAccount}>Ubah Profile</Text>
               </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('EditPassword')}
+                style={[styles.wrapperCardProfile, styles.buttonAccount]}>
+                <MaterialCommunityIcons
+                  name="lastpass"
+                  size={35}
+                  color="#440A67"
+                />
+                <Text style={styles.textCardAccount}>Ubah Password</Text>
+              </TouchableOpacity>
             </View>
           </ScrollView>
         </View>

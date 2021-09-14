@@ -16,6 +16,28 @@ export const getUserById = token => async dispatch => {
   }
 };
 
+export const changePass =
+  (token, oldPassword, newPassword) => async dispatch => {
+    const form = new URLSearchParams();
+    form.append('oldPassword', oldPassword);
+    form.append('password', newPassword);
+    try {
+      const {data} = await http(token).put(
+        `${REACT_APP_BASE_URL}/users/changepass`,
+        form.toString(),
+      );
+      dispatch({
+        type: 'CHANGE_PASSWORD',
+        payload: data.message,
+      });
+    } catch (err) {
+      dispatch({
+        type: 'CHANGE_PASSWORD_FAILED',
+        payload: err.response.data.message,
+      });
+    }
+  };
+
 export const changeUser = (token, Data) => async dispatch => {
   console.log(token, Data);
   const form = new FormData();

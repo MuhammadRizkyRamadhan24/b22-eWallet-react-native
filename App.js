@@ -24,6 +24,7 @@ import {LogBox} from 'react-native';
 import Transfer from './src/screens/Transfer';
 import EditProfile from './src/screens/EditProfile';
 import TransactionPulsa from './src/screens/TransactionPulsa';
+import EditPassword from './src/screens/EditPassword';
 LogBox.ignoreLogs(['Reanimated 2']);
 
 const Stack = createStackNavigator();
@@ -166,6 +167,20 @@ const App = props => {
                 component={EditProfile}
                 options={{
                   title: 'Edit Profile',
+                  headerStyle: {
+                    backgroundColor: '#440A67',
+                  },
+                  headerTintColor: '#fff',
+                  headerTitleStyle: {
+                    fontWeight: 'bold',
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="EditPassword"
+                component={EditPassword}
+                options={{
+                  title: 'Edit Password',
                   headerStyle: {
                     backgroundColor: '#440A67',
                   },
