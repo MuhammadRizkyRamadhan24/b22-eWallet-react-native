@@ -4,14 +4,6 @@ import {connect} from 'react-redux';
 import {historyReceiver, historySender} from '../redux/actions/transfers';
 import {historyTransaction} from '../redux/actions/transactions';
 
-// const footerComponent = () => {
-//   return (
-//     <View>
-//       <ActivityIndicator size="large" color="#440A67" />
-//     </View>
-//   );
-// };
-
 class History extends Component {
   constructor(props) {
     super(props);
@@ -138,7 +130,6 @@ class History extends Component {
         </View>
         <View style={styles.wrapperContent}>
           <View style={styles.nav}>
-            {/* <Text style={styles.title}>{this.state.status}</Text> */}
             <TouchableOpacity
               onPress={() => this.setState({status: 'Transfer'})}
               style={styles.wrapButton}>
@@ -179,11 +170,6 @@ class History extends Component {
               )}
               onEndReached={this.loadMoreSender}
               onEndReachedThreshold={0}
-              // ListFooterComponent={
-              //   this.props.transfers.msgSender !== 'User Not Found' &&
-              //   footerComponent
-              // }
-              // ListFooterComponentStyle={styles.footer}
             />
           )}
           {this.state.status === 'Receive' && (
@@ -236,17 +222,6 @@ class History extends Component {
               onEndReachedThreshold={0}
             />
           )}
-          {/* <View style={styles.wrapperCard}>
-            <View style={styles.card}>
-              <View style={styles.cardLeft}>
-                <Text style={styles.textName}>Transfer to Muhammad</Text>
-                <Text style={styles.textDesc}>Buat Jajan</Text>
-              </View>
-              <View style={styles.cardRight}>
-                <Text style={styles.textBalance}>200.000</Text>
-              </View>
-            </View>
-          </View> */}
         </View>
       </View>
     );
@@ -299,8 +274,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    marginTop: 40,
-    width: 190,
+    marginTop: '10%',
     fontFamily: 'Roboto-Medium',
     fontSize: 24,
     color: '#fff',

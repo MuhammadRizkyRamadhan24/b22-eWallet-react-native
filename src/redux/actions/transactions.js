@@ -2,6 +2,7 @@ import {http} from '../../helpers/http';
 import {REACT_APP_BASE_URL} from '@env';
 
 export const transactionPulsa = (token, Data) => async dispatch => {
+  console.log(REACT_APP_BASE_URL);
   const form = new URLSearchParams();
   form.append('number', Data.number);
   form.append('deductedBalance', Data.deductedBalance);
@@ -25,6 +26,7 @@ export const transactionPulsa = (token, Data) => async dispatch => {
 };
 
 export const historyTransaction = (token, page) => async dispatch => {
+  console.log(REACT_APP_BASE_URL);
   console.log(page);
   try {
     const {data} = await http(token).get(

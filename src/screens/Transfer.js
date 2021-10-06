@@ -105,7 +105,7 @@ class Transfer extends Component {
           {({handleChange, handleBlur, handleSubmit, errors, values}) => (
             <View style={styles.wrapperInput}>
               <Input
-                width={360}
+                width={'95%'}
                 marginTop={5}
                 variant="underlined"
                 type="number"
@@ -122,7 +122,7 @@ class Transfer extends Component {
               ) : null}
               <Text style={styles.text}>Nominal transfer</Text>
               <Input
-                width={360}
+                width={'95%'}
                 marginTop={5}
                 fontSize={20}
                 height={20}
@@ -138,7 +138,7 @@ class Transfer extends Component {
                 <Text style={styles.textError}>{errors.deductedBalance}</Text>
               ) : null}
               <Input
-                width={360}
+                width={'95%'}
                 marginTop={10}
                 variant="underlined"
                 onChangeText={handleChange('description')}
@@ -180,22 +180,22 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 20,
-    width: 360,
+    width: '95%',
     textAlign: 'left',
     fontFamily: 'Roboto-Bold',
     fontSize: 15,
   },
   button: {
-    marginTop: 380,
+    marginTop: '95%',
     backgroundColor: '#440A67',
-    width: 360,
+    width: '95%',
     height: 60,
     borderRadius: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },
   textError: {
-    width: 360,
+    width: '95%',
     textAlign: 'left',
     color: 'red',
     fontFamily: 'Roboto-Bold',

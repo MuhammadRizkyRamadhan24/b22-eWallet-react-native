@@ -11,23 +11,27 @@ export default class Welcome extends Component {
   render() {
     return (
       <View style={styles.wrapper}>
-        <Image style={styles.logo} source={Logo} />
-        <Image style={styles.coin} source={Coin} />
-        <Text style={styles.title}>Solusi Cerdas Finansial</Text>
-        <Text style={styles.paragraph}>
-          Nikmati berbagai layanan finansial dan kemudahan pembayaran dalam
-          genggaman
-        </Text>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Login')}
-          style={styles.button}>
-          <Text style={styles.textButton}>Sudah punya akun?</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Signup')}
-          style={styles.button}>
-          <Text style={styles.textButton}>Belum punya akun?</Text>
-        </TouchableOpacity>
+        <View style={styles.wrapperImg}>
+          <Image style={styles.logo} source={Logo} />
+          <Image style={styles.coin} source={Coin} />
+        </View>
+        <View style={styles.wrapperDown}>
+          <Text style={styles.title}>Solusi Cerdas Finansial</Text>
+          <Text style={styles.paragraph}>
+            Nikmati berbagai layanan finansial dan kemudahan pembayaran dalam
+            genggaman
+          </Text>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Login')}
+            style={styles.button}>
+            <Text style={styles.textButton}>Sudah punya akun?</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Signup')}
+            style={styles.button}>
+            <Text style={styles.textButton}>Belum punya akun?</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -40,35 +44,45 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  wrapperImg: {
+    flex: 3,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  wrapperDown: {
+    flex: 2,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   logo: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
   },
   title: {
-    marginTop: 40,
     fontFamily: 'Roboto-Bold',
     color: '#fff',
-    fontSize: 24,
+    fontSize: 20,
   },
   coin: {
-    marginTop: 80,
-    width: 285,
-    height: 238,
+    marginTop: '15%',
+    width: 229,
+    height: 190,
   },
   paragraph: {
-    marginTop: 5,
-    marginBottom: 20,
+    marginBottom: 10,
     textAlign: 'center',
     width: 335,
     fontFamily: 'Roboto-Regular',
     color: '#fff',
-    fontSize: 17,
+    fontSize: 15,
   },
   button: {
     marginVertical: 10,
     backgroundColor: '#fff',
-    width: 360,
-    height: 60,
+    width: '85%',
+    height: '22%',
     borderRadius: 40,
     justifyContent: 'center',
     alignItems: 'center',

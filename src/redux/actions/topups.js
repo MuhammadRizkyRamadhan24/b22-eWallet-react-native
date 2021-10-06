@@ -2,6 +2,7 @@ import {http} from '../../helpers/http';
 import {REACT_APP_BASE_URL} from '@env';
 
 export const topupToUser = (token, deductedBalance) => async dispatch => {
+  console.log(REACT_APP_BASE_URL);
   const form = new URLSearchParams();
   form.append('deductedBalance', deductedBalance);
   try {

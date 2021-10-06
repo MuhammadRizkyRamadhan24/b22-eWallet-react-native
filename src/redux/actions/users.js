@@ -2,6 +2,7 @@ import {http} from '../../helpers/http';
 import {REACT_APP_BASE_URL} from '@env';
 
 export const getUserById = token => async dispatch => {
+  console.log(REACT_APP_BASE_URL);
   try {
     const {data} = await http(token).get(`${REACT_APP_BASE_URL}/users`);
     dispatch({
@@ -18,6 +19,7 @@ export const getUserById = token => async dispatch => {
 
 export const changePass =
   (token, oldPassword, newPassword) => async dispatch => {
+    console.log(REACT_APP_BASE_URL);
     const form = new URLSearchParams();
     form.append('oldPassword', oldPassword);
     form.append('password', newPassword);
@@ -39,6 +41,7 @@ export const changePass =
   };
 
 export const changeUser = (token, Data) => async dispatch => {
+  console.log(REACT_APP_BASE_URL);
   console.log(token, Data);
   const form = new FormData();
   if (Data.image !== undefined) {

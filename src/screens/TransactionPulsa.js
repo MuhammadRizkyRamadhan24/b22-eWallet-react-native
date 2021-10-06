@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity, Alert} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  ScrollView,
+} from 'react-native';
 import {Input} from 'native-base';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
@@ -97,10 +104,10 @@ class TransactionPulsa extends Component {
           }}
           onSubmit={values => this.alertPulsa(values)}>
           {({handleChange, handleBlur, handleSubmit, errors, values}) => (
-            <View style={styles.wrapperInput}>
+            <ScrollView contentContainerStyle={styles.wrapperInput}>
               <Text style={styles.text}>Nomor</Text>
               <Input
-                width={360}
+                width={'95%'}
                 marginTop={5}
                 fontSize={20}
                 height={20}
@@ -119,7 +126,7 @@ class TransactionPulsa extends Component {
               )}
               <Text style={styles.text}>Nominal pulsa</Text>
               <Input
-                width={360}
+                width={'95%'}
                 marginTop={5}
                 fontSize={20}
                 height={20}
@@ -164,7 +171,7 @@ class TransactionPulsa extends Component {
               <TouchableOpacity style={styles.button} onPress={handleSubmit}>
                 <Text style={styles.textButton}>Beli Pulsa Sekarang</Text>
               </TouchableOpacity>
-            </View>
+            </ScrollView>
           )}
         </Formik>
       </View>
@@ -194,7 +201,7 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 20,
-    width: 360,
+    width: '95%',
     textAlign: 'left',
     fontFamily: 'Roboto-Bold',
     fontSize: 15,
@@ -203,14 +210,14 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 50,
     backgroundColor: '#440A67',
-    width: 360,
+    width: '95%',
     height: 60,
     borderRadius: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },
   textError: {
-    width: 360,
+    width: '95%',
     textAlign: 'left',
     color: 'red',
     fontFamily: 'Roboto-Bold',
@@ -223,13 +230,13 @@ const styles = StyleSheet.create({
   wrapperPulsa: {
     marginTop: 30,
     width: '100%',
-    height: 300,
+    height: '40%',
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
   },
   pulsa: {
-    width: 155,
+    width: 100,
     height: 80,
     backgroundColor: 'white',
     margin: 10,

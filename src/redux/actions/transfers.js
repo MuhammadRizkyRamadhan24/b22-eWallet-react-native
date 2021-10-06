@@ -2,6 +2,7 @@ import {http} from '../../helpers/http';
 import {REACT_APP_BASE_URL} from '@env';
 
 export const transferToUser = (token, Data) => async dispatch => {
+  console.log(REACT_APP_BASE_URL);
   const form = new URLSearchParams();
   form.append('phoneNumberReceiver', Data.phoneNumberReceiver);
   form.append('deductedBalance', Data.deductedBalance);
@@ -24,6 +25,7 @@ export const transferToUser = (token, Data) => async dispatch => {
 };
 
 export const historyReceiver = (token, page) => async dispatch => {
+  console.log(REACT_APP_BASE_URL);
   try {
     const {data} = await http(token).get(
       `${REACT_APP_BASE_URL}/transfer/receiver?sort[createdAt]=0&page=${page}`,
@@ -41,6 +43,7 @@ export const historyReceiver = (token, page) => async dispatch => {
 };
 
 export const historySender = (token, page) => async dispatch => {
+  console.log(REACT_APP_BASE_URL);
   console.log(page);
   try {
     const {data} = await http(token).get(

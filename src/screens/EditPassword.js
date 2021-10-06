@@ -78,37 +78,41 @@ class EditPassword extends Component {
           }}
           onSubmit={values => this.alertEdit(values)}>
           {({handleChange, handleBlur, handleSubmit, errors, values}) => (
-            <View style={styles.wrapperInput}>
-              <Text style={styles.textLabel}>Password Saat Ini</Text>
-              <Input
-                marginTop={5}
-                variant="underlined"
-                type="password"
-                onChangeText={handleChange('oldPassword')}
-                onBlur={handleBlur('oldPassword')}
-                placeholder="Isi Password saat ini"
-                value={values.oldPassword}
-              />
-              {errors.oldPassword ? (
-                <Text style={styles.textError}>{errors.oldPassword}</Text>
-              ) : null}
-              <Text style={styles.textLabel}>Password Baru</Text>
-              <Input
-                marginTop={5}
-                variant="underlined"
-                type="password"
-                onChangeText={handleChange('newPassword')}
-                onBlur={handleBlur('newPassword')}
-                placeholder="Isi Password Baru"
-                value={values.newPassword}
-              />
-              {errors.newPassword ? (
-                <Text style={styles.textError}>{errors.newPassword}</Text>
-              ) : null}
-              <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                <Text style={styles.textButton}>Simpan</Text>
-              </TouchableOpacity>
-            </View>
+            <>
+              <View style={styles.wrapperInput}>
+                <Text style={styles.textLabel}>Password Saat Ini</Text>
+                <Input
+                  marginTop={5}
+                  variant="underlined"
+                  type="password"
+                  onChangeText={handleChange('oldPassword')}
+                  onBlur={handleBlur('oldPassword')}
+                  placeholder="Isi Password saat ini"
+                  value={values.oldPassword}
+                />
+                {errors.oldPassword ? (
+                  <Text style={styles.textError}>{errors.oldPassword}</Text>
+                ) : null}
+                <Text style={styles.textLabel}>Password Baru</Text>
+                <Input
+                  marginTop={5}
+                  variant="underlined"
+                  type="password"
+                  onChangeText={handleChange('newPassword')}
+                  onBlur={handleBlur('newPassword')}
+                  placeholder="Isi Password Baru"
+                  value={values.newPassword}
+                />
+                {errors.newPassword ? (
+                  <Text style={styles.textError}>{errors.newPassword}</Text>
+                ) : null}
+              </View>
+              <View style={styles.wrapperButton}>
+                <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                  <Text style={styles.textButton}>Simpan</Text>
+                </TouchableOpacity>
+              </View>
+            </>
           )}
         </Formik>
       </View>
@@ -129,20 +133,26 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingHorizontal: 20,
+    paddingHorizontal: '5%',
   },
   wrapperInput: {
     width: '100%',
     textAlign: 'center',
+    flex: 1,
+  },
+  wrapperButton: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'flex-end',
   },
   button: {
-    marginTop: 280,
     backgroundColor: '#440A67',
-    width: 360,
+    width: '100%',
     height: 60,
     borderRadius: 40,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: '10%',
   },
   textError: {
     color: 'red',

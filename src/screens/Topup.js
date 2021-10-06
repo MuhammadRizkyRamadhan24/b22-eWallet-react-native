@@ -72,7 +72,7 @@ class Topup extends Component {
             <View style={styles.wrapperInput}>
               <Text style={styles.text}>Masukan nominal Top Up!</Text>
               <Input
-                width={360}
+                width={'95%'}
                 marginTop={5}
                 backgroundColor="#E0DEDE"
                 type="number"
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 10,
-    width: 360,
+    width: '95%',
     textAlign: 'left',
     fontFamily: 'Roboto-Bold',
     fontSize: 17,
@@ -126,14 +126,14 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 20,
     backgroundColor: '#440A67',
-    width: 360,
-    height: 60,
+    width: '95%',
+    height: 50,
     borderRadius: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },
   textError: {
-    width: 360,
+    width: '95%',
     textAlign: 'left',
     color: 'red',
     fontFamily: 'Roboto-Bold',

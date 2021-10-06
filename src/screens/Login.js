@@ -52,43 +52,46 @@ class Login extends Component {
     return (
       <View style={styles.wrapper}>
         <Image style={styles.logo} source={Logo} />
-        <Text style={styles.title}>Masuk</Text>
-        <Formik
-          style={styles.wrapperInput}
-          validationSchema={validationSchema}
-          initialValues={{phoneNumber: '', password: ''}}
-          onSubmit={values => this.login(values)}>
-          {({handleChange, handleBlur, handleSubmit, errors, values}) => (
-            <View style={styles.wrapperInput}>
-              <Input
-                backgroundColor="#E0DEDE"
-                keyboardType="number-pad"
-                onChangeText={handleChange('phoneNumber')}
-                onBlur={handleBlur('phoneNumber')}
-                placeholder="Masukin nomor HP kamu ya!"
-                value={values.phoneNumber}
-              />
-              {errors.phoneNumber ? (
-                <Text style={styles.textError}>{errors.phoneNumber}</Text>
-              ) : null}
-              <Input
-                marginTop={5}
-                backgroundColor="#E0DEDE"
-                type="password"
-                onChangeText={handleChange('password')}
-                onBlur={handleBlur('password')}
-                value={values.password}
-                placeholder="Masukin password kamu ya!"
-              />
-              {errors.password ? (
-                <Text style={styles.textError}>{errors.password}</Text>
-              ) : null}
-              <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                <Text style={styles.textButton}>Masuk</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        </Formik>
+        <View style={styles.wrapperInput}>
+          <Text style={styles.title}>Masuk</Text>
+          <Formik
+            validationSchema={validationSchema}
+            initialValues={{phoneNumber: '', password: ''}}
+            onSubmit={values => this.login(values)}>
+            {({handleChange, handleBlur, handleSubmit, errors, values}) => (
+              <>
+                <Input
+                  width={'85%'}
+                  backgroundColor="#E0DEDE"
+                  keyboardType="number-pad"
+                  onChangeText={handleChange('phoneNumber')}
+                  onBlur={handleBlur('phoneNumber')}
+                  placeholder="Masukin nomor HP kamu ya!"
+                  value={values.phoneNumber}
+                />
+                {errors.phoneNumber ? (
+                  <Text style={styles.textError}>{errors.phoneNumber}</Text>
+                ) : null}
+                <Input
+                  width={'85%'}
+                  marginTop={5}
+                  backgroundColor="#E0DEDE"
+                  type="password"
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  value={values.password}
+                  placeholder="Masukin password kamu ya!"
+                />
+                {errors.password ? (
+                  <Text style={styles.textError}>{errors.password}</Text>
+                ) : null}
+                <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                  <Text style={styles.textButton}>Masuk</Text>
+                </TouchableOpacity>
+              </>
+            )}
+          </Formik>
+        </View>
       </View>
     );
   }
@@ -112,22 +115,24 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-Bold',
     color: '#440A67',
     fontSize: 35,
-    width: 360,
+    width: '85%',
     marginVertical: 10,
   },
   logo: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     marginTop: 100,
   },
   wrapperInput: {
-    width: 360,
+    width: '100%',
+    flex: 1,
+    alignItems: 'center',
   },
   button: {
-    marginTop: 40,
+    marginTop: 30,
     backgroundColor: '#440A67',
-    width: 360,
-    height: 60,
+    width: '85%',
+    height: '12%',
     borderRadius: 40,
     justifyContent: 'center',
     alignItems: 'center',

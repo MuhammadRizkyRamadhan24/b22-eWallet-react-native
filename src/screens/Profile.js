@@ -26,12 +26,6 @@ class Profile extends Component {
             <View style={styles.wrapperProfile}>
               <Text style={styles.textProfile}>Profile</Text>
               <View style={styles.wrapperCardProfile}>
-                {/* <Image
-                  style={styles.image}
-                  source={{
-                    uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
-                  }}
-                /> */}
                 {this.props.users.data.image !== null ? (
                   <Image
                     style={styles.image}
@@ -112,15 +106,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   textProfile: {
-    marginTop: 80,
+    marginTop: '10%',
     fontFamily: 'Roboto-Bold',
     fontSize: 28,
     marginLeft: 20,
   },
   wrapperCardProfile: {
     width: '100%',
-    height: 80,
-    paddingHorizontal: 20,
+    height: 70,
+    paddingHorizontal: '5%',
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -146,8 +140,8 @@ const styles = StyleSheet.create({
   textAccount: {
     fontFamily: 'Roboto-Bold',
     fontSize: 20,
-    marginLeft: 20,
-    marginVertical: 25,
+    marginLeft: '5%',
+    marginVertical: '5%',
   },
   textCardAccount: {
     marginLeft: 15,
@@ -161,8 +155,8 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#440A67',
-    width: 360,
-    height: 60,
+    width: '90%',
+    height: '50%',
     borderRadius: 40,
     justifyContent: 'center',
     alignItems: 'center',

@@ -127,30 +127,17 @@ class Home extends Component {
     return (
       <>
         {this.state.loading === false ? (
-          <ScrollView
-            contentContainerStyle={styles.wrapper}
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this.onRefresh}
-              />
-            }>
-            {/* <View style={styles.wrapper}> */}
-            <View style={styles.wrapperHeader}>
+          <View style={styles.wrapper}>
+            <ScrollView
+              contentContainerStyle={styles.wrapperHeader}
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this.onRefresh}
+                />
+              }>
               <View style={styles.headerLeft}>
                 <TouchableOpacity>
-                  {/* <Image
-                    style={styles.profile}
-                    source={{
-                      uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
-                    }}
-                  /> */}
-                  {/* <Image
-                    style={styles.profile}
-                    source={{
-                      uri: `${REACT_APP_BASE_URL}/static/images/${this.props.users.data.image}`,
-                    }}
-                  /> */}
                   {this.props.users.data.image !== null ? (
                     <Image
                       style={styles.profile}
@@ -168,7 +155,6 @@ class Home extends Component {
                   )}
                 </TouchableOpacity>
                 <View style={styles.wrapperName}>
-                  {/* <Text style={styles.name}>{this.props.users.data.name}</Text> */}
                   {this.props.users.data.name !== '' && (
                     <Text style={styles.name}>
                       {this.props.users.data.name}
@@ -188,7 +174,7 @@ class Home extends Component {
                   />
                 </TouchableOpacity>
               </View>
-            </View>
+            </ScrollView>
             <View style={styles.wrapperContent}>
               <View style={styles.wrapperBalance}>
                 <View style={styles.balance}>
@@ -218,65 +204,73 @@ class Home extends Component {
                   </TouchableOpacity>
                 </View>
               </View>
-              <View style={styles.wrapperPayment}>
-                <TouchableOpacity
-                  onPress={() => this.props.navigation.navigate('Pulsa')}
-                  style={styles.wrapperFeature}>
-                  <Image source={iconPulsa} style={styles.iconPulsa} />
-                  <Text style={styles.textIcon}>Pulsa</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.wrapperFeature}>
-                  <Image source={iconSchool} style={styles.iconSchool} />
-                  <Text style={styles.textIcon}>Pendidikan</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.wrapperFeature}>
-                  <Image source={iconGame} style={styles.iconGame} />
-                  <Text style={styles.textIcon}>Game</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.wrapperFeature}>
-                  <Image source={iconStream} style={styles.iconStream} />
-                  <Text style={styles.textIcon}>Streaming</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.wrapperFeature}>
-                  <Image source={iconMusic} style={styles.iconMusic} />
-                  <Text style={styles.textIcon}>Musik</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.wrapperFeature}>
-                  <Image source={iconInternet} style={styles.iconInternet} />
-                  <Text style={styles.textIcon}>Internet</Text>
-                </TouchableOpacity>
-              </View>
-              <ScrollView
-                showsHorizontalScrollIndicator={false}
-                horizontal={true}>
-                <View style={styles.wrapperCard}>
-                  <Image
-                    style={styles.imageCard}
-                    source={{
-                      uri: 'https://www.k24klik.com/blog/wp-content/uploads/2021/03/blog-banner-OVO-CLBK.jpg',
-                    }}
-                  />
-                </View>
-                <View style={styles.wrapperCard}>
-                  <Image
-                    style={styles.imageCard}
-                    source={{
-                      uri: 'https://images-loyalty.ovo.id/public/deal/78/88/l/15438.jpg?ver=1',
-                    }}
-                  />
-                </View>
-                <View style={styles.wrapperCard}>
-                  <Image
-                    style={styles.imageCard}
-                    source={{
-                      uri: 'https://infodigimarket.com/wp-content/uploads/2018/10/180320-ovo.jpg',
-                    }}
-                  />
+
+              <ScrollView style={styles.sv}>
+                <View style={styles.wrapperScroll}>
+                  <View style={styles.wrapperPayment}>
+                    <TouchableOpacity
+                      onPress={() => this.props.navigation.navigate('Pulsa')}
+                      style={styles.wrapperFeature}>
+                      <Image source={iconPulsa} style={styles.iconPulsa} />
+                      <Text style={styles.textIcon}>Pulsa</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.wrapperFeature}>
+                      <Image source={iconSchool} style={styles.iconSchool} />
+                      <Text style={styles.textIcon}>Pendidikan</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.wrapperFeature}>
+                      <Image source={iconGame} style={styles.iconGame} />
+                      <Text style={styles.textIcon}>Game</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.wrapperFeature}>
+                      <Image source={iconStream} style={styles.iconStream} />
+                      <Text style={styles.textIcon}>Streaming</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.wrapperFeature}>
+                      <Image source={iconMusic} style={styles.iconMusic} />
+                      <Text style={styles.textIcon}>Musik</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.wrapperFeature}>
+                      <Image
+                        source={iconInternet}
+                        style={styles.iconInternet}
+                      />
+                      <Text style={styles.textIcon}>Internet</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <ScrollView
+                    showsHorizontalScrollIndicator={false}
+                    horizontal={true}
+                    style={styles.wrapperCards}>
+                    <View style={styles.wrapperCard}>
+                      <Image
+                        style={styles.imageCard}
+                        source={{
+                          uri: 'https://www.k24klik.com/blog/wp-content/uploads/2021/03/blog-banner-OVO-CLBK.jpg',
+                        }}
+                      />
+                    </View>
+                    <View style={styles.wrapperCard}>
+                      <Image
+                        style={styles.imageCard}
+                        source={{
+                          uri: 'https://images-loyalty.ovo.id/public/deal/78/88/l/15438.jpg?ver=1',
+                        }}
+                      />
+                    </View>
+                    <View style={styles.wrapperCard}>
+                      <Image
+                        style={styles.imageCard}
+                        source={{
+                          uri: 'https://infodigimarket.com/wp-content/uploads/2018/10/180320-ovo.jpg',
+                        }}
+                      />
+                    </View>
+                  </ScrollView>
                 </View>
               </ScrollView>
             </View>
-            {/* </View> */}
-          </ScrollView>
+          </View>
         ) : (
           <View style={styles.wrapper}>
             <View style={styles.wrapperHeader} />
@@ -313,17 +307,17 @@ const styles = StyleSheet.create({
   headerLeft: {
     alignItems: 'center',
     flexDirection: 'row',
-    width: 280,
+    width: '70%',
     height: 60,
     marginLeft: 27,
     marginTop: 60,
   },
   headerRight: {
-    width: 59,
+    width: '15%',
     height: 60,
     marginTop: 60,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
   profile: {
     height: 50,
@@ -344,12 +338,19 @@ const styles = StyleSheet.create({
     marginVertical: 2,
   },
   wrapperContent: {
-    flex: 2,
+    flex: 5,
+    alignItems: 'center',
+  },
+  sv: {
+    marginTop: 20,
+  },
+  wrapperScroll: {
+    width: '100%',
     alignItems: 'center',
   },
   wrapperBalance: {
-    marginTop: -110,
-    width: 340,
+    marginTop: '-15%',
+    width: '95%',
     height: 200,
     backgroundColor: 'white',
     borderRadius: 20,
@@ -361,7 +362,7 @@ const styles = StyleSheet.create({
   wrapperBalanceLoading: {
     backgroundColor: '#E0DEDE',
     marginTop: -110,
-    width: 340,
+    width: '95%',
     height: 200,
     borderRadius: 20,
     shadowColor: '#000000',
@@ -392,8 +393,7 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginTop: 30,
-    width: 340,
+    width: '95%',
     height: 220,
     backgroundColor: 'white',
     borderRadius: 20,
@@ -483,12 +483,16 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-Regular',
     color: '#440A67',
   },
+  wrapperCards: {
+    margin: '3%',
+  },
   wrapperCard: {
     justifyContent: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginTop: 30,
-    width: 350,
+    marginTop: '2%',
+    marginRight: 15,
+    width: 300,
     height: 130,
     backgroundColor: 'white',
     borderRadius: 20,
@@ -496,7 +500,6 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.8,
     elevation: 5,
-    marginHorizontal: 25,
   },
   imageCard: {
     width: '100%',

@@ -2,6 +2,7 @@ import {http} from '../../helpers/http';
 import {REACT_APP_BASE_URL} from '@env';
 
 export const authLogin = (phoneNumber, password) => async dispatch => {
+  console.log(REACT_APP_BASE_URL);
   const form = new URLSearchParams();
   form.append('phone_number', phoneNumber);
   form.append('password', password);
@@ -29,7 +30,7 @@ export const authLogin = (phoneNumber, password) => async dispatch => {
 };
 
 export const authNotifToken = (token, notifToken) => {
-  console.log(token);
+  console.log(REACT_APP_BASE_URL);
   return async dispatch => {
     const form = new URLSearchParams();
     form.append('token', notifToken.token);
@@ -48,6 +49,7 @@ export const authNotifToken = (token, notifToken) => {
 
 export const authRegister =
   (email, phoneNumber, password) => async dispatch => {
+    console.log(REACT_APP_BASE_URL);
     const form = new URLSearchParams();
     form.append('email', email);
     form.append('phone_number', phoneNumber);
